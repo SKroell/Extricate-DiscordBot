@@ -1,16 +1,15 @@
+import os
 import math
 import discord
 import asyncio
 import steamlb as sl
 import datetime
-import yaml
 
-config = yaml.safe_load(open("config.yaml"))
 icon_url = "https://cdn.discordapp.com/avatars/542096662894608405/c2dbfde314c1f2a12da25ea489a0e98c.webp"
 steam_url = "https://store.steampowered.com/app/1012970/Extricate/"
 
 # Leaderboard Stuff
-steam_lb = sl.SteamLeaderboard(1012970, config['steam_api_key'])
+steam_lb = sl.SteamLeaderboard(1012970, os.environ['steam_api_key'])
 leaderboards = [
     3236666, 3236720, 3236721, 3236723, 3236724, 3236725, 3236726, 3236727, 3236728, 3236729,  # Section A
     3236730, 3236731, 3236732, 3236733, 3236734, 3236735, 3236736, 3236737, 3236738, 3236739,  # Section B
@@ -112,10 +111,10 @@ class ExtricateBot(discord.Client):
 
             for x in range(10):
                 if len(stable_scores) > x:
-                    username = sl.get_username(config['steam_api_key'], stable_scores[x][0])
+                    username = sl.get_username(os.environ['steam_api_key'], stable_scores[x][0])
                     msg += lb_index[x] + " **" + str(username) + "** [**" + str("%.2f" % stable_scores[x][1]) + "** pts]\n"
                 if len(exp_scores) > x:
-                    username_exp = sl.get_username(config['steam_api_key'], exp_scores[x][0])
+                    username_exp = sl.get_username(os.environ['steam_api_key'], exp_scores[x][0])
                     msg_exp += lb_index[x] + " **" + str(username_exp) + "** [**" + str("%.2f" % exp_scores[x][1]) + "** pts]\n"
             msg += "\nPoints are awarded for every leaderboard (not EXP). Refreshed every 15 minutes"
             msg_exp += "\nPoints are awarded for every EXP leaderboard. Refreshed every 15 minutes"
@@ -131,4 +130,4 @@ class ExtricateBot(discord.Client):
 
 
 client = ExtricateBot()
-client.run(config['discord_auth'])
+client.run(os.environ['discord_auth'])
