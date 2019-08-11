@@ -11,20 +11,13 @@ steam_url = "https://store.steampowered.com/app/1012970/Extricate/"
 
 # Leaderboard Stuff
 leaderboards = {
-    'A1': 3236666, 'A2': 3236720, 'A3': 3236721, 'A4': 3236723, 'A5': 3236724, 'A6': 3236725, 'A7': 3236726, 'A8': 3236727, 'A9': 3236728, 'A10': 3236729, # Section A
-    'B1': 3236730, 'B2': 3236731, 'B3': 3236732, 'B4': 3236733, 'B5': 3236734, 'B6': 3236735, 'B7': 3236736, 'B8': 3236737, 'B9': 3236738, 'B10': 3236739,  # Section B
-    'C1': 3236741, 'C2': 3236742, 'C3': 3236743, 'C4': 3236744, 'C5': 3236745, 'C6': 3236746, 'C7': 3236747, 'C8': 3236748, 'C9': 3236749, 'C10': 3236750,  # Section C
-    'D1': 3236751, 'D2': 3236752, 'D3': 3236753, 'D4': 3236754, 'D5': 3236756, 'D6': 3236757, 'D7': 3236758, 'D8': 3236759, 'D9': 3236760, 'D10': 3236761,  # Section D
-    'E1': 3236762, 'E2': 3236763, 'E3': 3236764, 'E4': 3236765, 'E5': 3236766, 'E6': 3236767, 'E7': 3236768, 'E8': 3236769, 'E9': 3236770, 'E10': 3236771,  # Section E
+    'A1': 3659870, 'A2': 3660015, 'A3': 3660017, 'A4': 3660018, 'A5': 3660026, 'A6': 3660028, 'A7': 3660027, 'A8': 3660761, 'A9': 3660762, 'A10': 3660763,  # Section A
+    'B1': 3660024, 'B2': 3660765, 'B3': 3660766, 'B4': 3660769, 'B5': 3660770, 'B6': 3660771, 'B7': 3660772, 'B8': 3660773, 'B9': 3660775, 'B10': 3660776,  # Section B
+    'C1': 3660777, 'C2': 3660778, 'C3': 3660780, 'C4': 3660781, 'C5': 3660782, 'C6': 3660783, 'C7': 3660784, 'C8': 3660786, 'C9': 3660787, 'C10': 3660788,  # Section C
+    'D1': 3660789, 'D2': 3660791, 'D3': 3660793, 'D4': 3660794, 'D5': 3660796, 'D6': 3660800, 'D7': 3660801, 'D8': 3660805, 'D9': 3660808, 'D10': 3660812,  # Section D
+    'E1': 3660813, 'E2': 3660814, 'E3': 3660831, 'E4': 3660832, 'E5': 3660833, 'E6': 3660836, 'E7': 3660841, 'E8': 3660845, 'E9': 3660846, 'E10': 3659658,  # Section E
 }
 
-leaderboards_exp = {
-    'A1_EXP': 3272402, 'A2_EXP': 3272403, 'A3_EXP': 3272404, 'A4_EXP': 3272405, 'A5_EXP': 3272406, 'A6_EXP': 3272407, 'A7_EXP': 3272408, 'A8_EXP': 3272409, 'A9_EXP': 3272410, 'A10_EXP': 3272412,  # Section A EXP
-    'B1_EXP': 3272414, 'B2_EXP': 3272416, 'B3_EXP': 3272417, 'B4_EXP': 3272418, 'B5_EXP': 3272419, 'B6_EXP': 3272420, 'B7_EXP': 3272421, 'B8_EXP': 3272422, 'B9_EXP': 3272424, 'B10_EXP': 3272425,  # Section B EXP
-    'C1_EXP': 3272427, 'C2_EXP': 3272428, 'C3_EXP': 3272429, 'C4_EXP': 3272430, 'C5_EXP': 3272431, 'C6_EXP': 3272432, 'C7_EXP': 3272433, 'C8_EXP': 3272435, 'C9_EXP': 3272436, 'C10_EXP': 3272437,  # Section C EXP
-    'D1_EXP': 3272439, 'D2_EXP': 3272440, 'D3_EXP': 3272441, 'D4_EXP': 3272442, 'D5_EXP': 3272443, 'D6_EXP': 3272444, 'D7_EXP': 3272445, 'D8_EXP': 3272446, 'D9_EXP': 3272447, 'D10_EXP': 3272448,  # Section D EXP
-    'E1_EXP': 3272449, 'E2_EXP': 3272450, 'E3_EXP': 3272452, 'E4_EXP': 3272453, 'E5_EXP': 3272454, 'E6_EXP': 3272455, 'E7_EXP': 3272456, 'E8_EXP': 3272457, 'E9_EXP': 3272458, 'E10_EXP': 3272459,  # Section E EXP
-}
 
 # Discord emotes instead of numbers
 lb_index = [
@@ -49,9 +42,9 @@ def convert_to_nicetime(time):
 
 
 # Get times for specific leaderboard
-def get_leaderboard_times(lb, exp=False):
+def get_leaderboard_times(lb):
     player_times = {}
-    leaderboard_id = leaderboards_exp[lb] if exp else leaderboards[lb]
+    leaderboard_id = leaderboards[lb]
 
     print("Getting leaderboard scores for " + lb + "...")
 
@@ -72,9 +65,9 @@ def get_leaderboard_times(lb, exp=False):
 # Calculates scores for all players
 # Scores are calculated with sqrt(n)/sqrt(k/10)
 # Where n is the amount of entries and k is the rank
-def calculate_leaderboard_scores(exp):
+def calculate_leaderboard_scores():
     player_scores = {}
-    leaderboard_ids = leaderboards_exp if exp else leaderboards
+    leaderboard_ids = leaderboards
 
     print("Getting leaderboard scores...")
 
@@ -88,7 +81,8 @@ def calculate_leaderboard_scores(exp):
 
         # Calculate score for player
         for score in lb.entries:
-            lb_score = math.sqrt(len(lb.entries)) / math.sqrt(score.rank / 10)
+            # lb_score = math.sqrt(len(lb.entries)) / math.sqrt(score.rank / 10)
+            lb_score = 1000*math.pow(0.98, score.rank - 1)
             current_score = player_scores.get(score.steam_id, 0)
             player_scores[score.steam_id] = current_score + lb_score
 
