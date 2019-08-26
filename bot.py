@@ -25,18 +25,30 @@ class ExtricateBot(commands.Bot):
         channel = self.get_channel(559037968720068611)  # channel ID goes here
         while not self.is_closed():
             msg = ""
+            wr_msg = ""
 
             stable_scores = sl.sort_entries(sl.calculate_leaderboard_scores())
+            wr_counts = sl.sort_entries(sl.get_leaderboard_wr())
+            print(wr_counts)
 
             for x in range(10):
                 if len(stable_scores) > x:
                     username = sl.get_username(os.environ['steam_api_key'], stable_scores[x][0])
                     msg += sl.lb_index[x] + " **" + str(username) + "** [**" + str("%.2f" % stable_scores[x][1]) + "** pts]\n"
-            msg += "\nPoints are awarded for every leaderboard (not EXP). Refreshed every 15 minutes"
 
-            history = await channel.history(limit=5).flatten()
-            await history[0].edit(embed=sl.create_lb_embed(msg, "Leaderboard"))
-            print("Leaderboard Updated!")
+                if len(wr_counts) > x and wr_counts[x][1] is not 0:
+                    username = sl.get_username(os.environ['steam_api_key'], wr_counts[x][0])
+                    wr_msg += sl.lb_index[x] + " **" + str(username) + "** [**" + str(wr_counts[x][1]) + "** WRs]\n"
+            msg += "\nPoints are awarded for every leaderboard (not EXP). Refreshed every 15 minutes"
+            wr_msg += "\nRefreshed every 15 minutes (WIP)"
+
+            if len(await channel.history(limit=5).flatten()) >= 2:
+                history = await channel.history(limit=5).flatten()
+                await history[1].edit(embed=sl.create_lb_embed(msg, "Leaderboard"))
+                await history[0].edit(embed=sl.create_lb_embed(wr_msg, "WR Leaderboard"))
+                print("Leaderboard Updated!")
+            else:
+                await channel.send(embed=sl.create_lb_embed(wr_msg, "WR Leaderboard"))
             await asyncio.sleep(900)  # task runs every 15 minutes (roughly since we dont count for running time)
 
     # Commands

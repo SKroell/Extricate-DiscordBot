@@ -11,13 +11,17 @@ steam_url = "https://store.steampowered.com/app/1012970/Extricate/"
 
 # Leaderboard Stuff
 leaderboards = {
-    'A1': 3659870, 'A2': 3660015, 'A3': 3660017, 'A4': 3660018, 'A5': 3660026, 'A6': 3660028, 'A7': 3660027, 'A8': 3660761, 'A9': 3660762, 'A10': 3660763,  # Section A
-    'B1': 3660024, 'B2': 3660765, 'B3': 3660766, 'B4': 3660769, 'B5': 3660770, 'B6': 3660771, 'B7': 3660772, 'B8': 3660773, 'B9': 3660775, 'B10': 3660776,  # Section B
-    'C1': 3660777, 'C2': 3660778, 'C3': 3660780, 'C4': 3660781, 'C5': 3660782, 'C6': 3660783, 'C7': 3660784, 'C8': 3660786, 'C9': 3660787, 'C10': 3660788,  # Section C
-    'D1': 3660789, 'D2': 3660791, 'D3': 3660793, 'D4': 3660794, 'D5': 3660796, 'D6': 3660800, 'D7': 3660801, 'D8': 3660805, 'D9': 3660808, 'D10': 3660812,  # Section D
-    'E1': 3660813, 'E2': 3660814, 'E3': 3660831, 'E4': 3660832, 'E5': 3660833, 'E6': 3660836, 'E7': 3660841, 'E8': 3660845, 'E9': 3660846, 'E10': 3659658,  # Section E
+    'A1': 3659870, 'A2': 3660015, 'A3': 3660017, 'A4': 3660018, 'A5': 3660026, 'A6': 3660028, 'A7': 3660027,
+    'A8': 3660761, 'A9': 3660762, 'A10': 3660763,  # Section A
+    'B1': 3660024, 'B2': 3660765, 'B3': 3660766, 'B4': 3660769, 'B5': 3660770, 'B6': 3660771, 'B7': 3660772,
+    'B8': 3660773, 'B9': 3660775, 'B10': 3660776,  # Section B
+    'C1': 3660777, 'C2': 3660778, 'C3': 3660780, 'C4': 3660781, 'C5': 3660782, 'C6': 3660783, 'C7': 3660784,
+    'C8': 3660786, 'C9': 3660787, 'C10': 3660788,  # Section C
+    'D1': 3660789, 'D2': 3660791, 'D3': 3660793, 'D4': 3660794, 'D5': 3660796, 'D6': 3660800, 'D7': 3660801,
+    'D8': 3660805, 'D9': 3660808, 'D10': 3660812,  # Section D
+    'E1': 3660813, 'E2': 3660814, 'E3': 3660831, 'E4': 3660832, 'E5': 3660833, 'E6': 3660836, 'E7': 3660841,
+    'E8': 3660845, 'E9': 3660846, 'E10': 3659658,  # Section E
 }
-
 
 # Discord emotes instead of numbers
 lb_index = [
@@ -32,6 +36,9 @@ lb_index = [
     ":nine:",
     ":keycap_ten:",
 ]
+
+# WR
+wr_count = {}
 
 
 def convert_to_nicetime(time):
@@ -62,6 +69,10 @@ def get_leaderboard_times(lb):
     return player_times
 
 
+def get_leaderboard_wr():
+    return wr_count
+
+
 # Calculates scores for all players
 # Scores are calculated with sqrt(n)/sqrt(k/10)
 # Where n is the amount of entries and k is the rank
@@ -82,9 +93,16 @@ def calculate_leaderboard_scores():
         # Calculate score for player
         for score in lb.entries:
             # lb_score = math.sqrt(len(lb.entries)) / math.sqrt(score.rank / 10)
-            lb_score = 1000*math.pow(0.98, score.rank - 1)
+            lb_score = 1000 * math.pow(0.98, score.rank - 1)
             current_score = player_scores.get(score.steam_id, 0)
             player_scores[score.steam_id] = current_score + lb_score
+
+            # Save WR holder
+            if score.rank <= 1:
+                if score.steam_id in wr_count:
+                    wr_count[score.steam_id] = wr_count[score.steam_id] + 1
+                else:
+                    wr_count[score.steam_id] = 1
 
     # Return playerscores
     return player_scores
