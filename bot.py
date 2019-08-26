@@ -24,6 +24,7 @@ class ExtricateBot(commands.Bot):
         await self.wait_until_ready()
         channel = self.get_channel(559037968720068611)  # channel ID goes here
         while not self.is_closed():
+            sl.wr_count.clear()
             msg = ""
             wr_msg = ""
 
