@@ -40,7 +40,7 @@ class ExtricateBot(commands.Bot):
                     username = sl.get_username(os.environ['steam_api_key'], wr_counts[x][0])
                     wr_msg += sl.lb_index[x] + " **" + str(username) + "** [**" + str(wr_counts[x][1]) + "** WRs]\n"
             msg += "\nPoints are awarded for every leaderboard (not EXP). Refreshed every 15 minutes"
-            wr_msg += "\nRefreshed every 15 minutes (WIP)"
+            wr_msg += "\nRefreshed every 15 minutes"
 
             if len(await channel.history(limit=5).flatten()) >= 2:
                 history = await channel.history(limit=5).flatten()
